@@ -3,7 +3,7 @@ package pconcurrente.ejercicio4;
 public class Contador implements Runnable{
 
     boolean ejecutar = true;
-    int cuenta = 0;
+    int cuenta = 1;
 
     public void detener(){
         ejecutar = false;
@@ -15,17 +15,11 @@ public class Contador implements Runnable{
 
     @Override
     public void run() {
-        for(int i = 1; i <= 5; i++){
-            System.out.println(i);
-            try {
-                Thread.sleep(1000);
-                cuenta++;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         while(ejecutar){
             try {
+                if(cuenta <=5) {
+                    System.out.println(cuenta);
+                }
                 Thread.sleep(1000);
                 cuenta++;
             } catch (InterruptedException e) {
