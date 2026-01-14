@@ -33,7 +33,7 @@ public class Consumidor implements Runnable{
                 }
                 System.out.println("Hilo Consumidor: Creando caja con 6 cápsulas");
                 try {
-                    Thread.sleep(r.nextInt(2002) + 999); // Espera entre 1000ms y 3000 ms
+                    Thread.sleep(r.nextInt(1000,3001)); // Espera entre 1000ms y 3000 ms
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
