@@ -1,16 +1,11 @@
 package pconcurrente.ejercicio8;
 
 public class Capsula {
-    private String nombre;
     private int intensidad;
+    private Variedad variedad;
 
-    public Capsula (String nombre, int intensidad){
-        this.nombre = nombre;
+    public Capsula(int intensidad, Variedad variedad){
         this.intensidad = intensidad;
-    }
-
-    @Override
-    public String toString() {
-        return "nombre=" + nombre + ", intensidad=" + intensidad;
+        this.variedad = variedad;
     }
 }

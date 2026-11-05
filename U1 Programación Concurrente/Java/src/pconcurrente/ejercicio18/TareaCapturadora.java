@@ -1,4 +1,4 @@
-package pconcurrente.ejercicio10;
+package pconcurrente.ejercicio18;
 
 public class TareaCapturadora implements Runnable {
 

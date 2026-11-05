@@ -2,38 +2,33 @@ package pconcurrente.ejercicio8c;
 
 import java.util.Random;
 
-public class Productor implements Runnable {
+public class Productor implements Runnable{
 
-    private boolean ejecutar = true;
-    private String variedad;
     private int intensidad;
     private Contenedor contenedor;
-
-    public Productor (Contenedor contenedor, String variedad, int intensidad){
-        this.variedad = variedad;
+    private Variedad variedad;
+    public Productor (int intensidad, Variedad variedad, Contenedor contenedor){
         this.intensidad = intensidad;
+        this.variedad = variedad;
         this.contenedor = contenedor;
     }
-    public void Detener(){
-        ejecutar = false;
-    }
+
     @Override
     public void run() {
         Random r = new Random();
-        while(ejecutar){
+        while(true){
             try {
-
-                Thread.sleep(r.nextInt(502) + 499); // Espera entre 500 y 1000 ms
-                synchronized (contenedor){
-                    Capsula c = new Capsula(variedad, intensidad);
-                    contenedor.anyadirCapsula(c);
-                    System.out.println("Hilo Productor: Se ha fabricado una cápsula. Total en contenedor: " + contenedor.numeroCapsulas());
-                    if(contenedor.numeroCapsulas() >= 6){
-                        contenedor.notify();
-                    }
-                }
+                Thread.sleep(r.nextInt(500,1001));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+            Capsula c = new Capsula(intensidad, variedad);
+            contenedor.add(c);
+            System.out.println("Hilo Productor: Se ha fabricado una cápsula. Total en contenedor: " + contenedor.size());
+            if(contenedor.size()>=6){
+                synchronized (contenedor) {
+                    contenedor.notify();
+                }
             }
         }
     }

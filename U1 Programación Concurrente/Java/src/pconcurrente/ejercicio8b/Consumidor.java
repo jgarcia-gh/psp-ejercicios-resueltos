@@ -1,39 +1,40 @@
 package pconcurrente.ejercicio8b;
 
 import java.util.Random;
-
+import java.util.ArrayList;
 public class Consumidor implements Runnable{
 
-    private boolean ejecutar = true;
     private Contenedor contenedor;
-
     public Consumidor(Contenedor contenedor){
         this.contenedor = contenedor;
     }
-    public void Detener(){
-        ejecutar = false;
-    }
     @Override
     public void run() {
-        Random r = new Random();
-            while(ejecutar){
-                synchronized (contenedor) {
-                    while (contenedor.numeroCapsulas() < 6) {
-                        try {
-                            contenedor.wait(); // Esperamos hasta que nos notifiquen que hay al menos 6 cápsulas
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+        while(true){
+
+                while(contenedor.size()<6){
+                    try {
+                        synchronized (contenedor) {
+                            contenedor.wait();
                         }
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
-                    contenedor.sacarCapsulas();
                 }
+
                 System.out.println("Hilo Consumidor: Creando caja con 6 cápsulas");
+
+                ArrayList<Capsula> capsulasExtraidas = contenedor.extraerCapsulas();
+
+                // Simulamos que empaquetamos las cápsulas
+                Random r = new Random();
                 try {
-                    Thread.sleep(r.nextInt(2002) + 999); // Espera entre 1000ms y 3000 ms
+                    Thread.sleep(r.nextInt(1000,3000));
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
                 }
                 System.out.println("Hilo Consumidor: Caja creada");
             }
-    }
+        }
+
 }

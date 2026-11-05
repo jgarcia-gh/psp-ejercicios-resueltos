@@ -1,0 +1,17 @@
+1.	¿Por qué ocurre un interbloqueo (deadlock)? Explica la secuencia exacta de eventos que
+lo provoca.
+
+Se produce un interbloqueo por el orden en el que se bloquena los recursos que hace que un hilo
+necesite un recurso en uso por el otro y viceversa.
+La secuencia de eventos es la siguiente:
+    1. El hilo 1 bloquea cuentaA (origen) e intenta bloquear cuentaB (destino).
+    2. Al mismo tiempo, el hilo 2 bloquea cuentaB (su origen) e intenta bloquear cuentaA (su destino).
+    3. El hilo 1 se queda esperando a que el hilo 2 libere cuentaB, y el hilo 2 se queda esperando a
+       que el hilo 1 libere cuentaA. Ninguno puede avanzar.
+
+2.	¿Qué condición se debe cumplir en la ejecución para que el fallo ocurra?
+
+Debe ocurrir una alternancia en el tiempo: el Hilo 1 debe lograr el primer bloqueo (origen),
+ y antes de que consiga el segundo (destino), el Hilo 2 debe lograr bloquear su propio origen.
+ El Thread.sleep(50) prácticamente garantiza que esto ocurra si se ejecutan a la vez.
+

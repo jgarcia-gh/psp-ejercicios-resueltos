@@ -1,0 +1,3 @@
+Al añadir nuevos productores, se crean una gran cantidad de cápsulas que se almacenan en el contenedor,
+sin que el consumidor tenga tiempo de empaquetarlos.
+Esto a largo plazo puede conllevar a un uso excesivo y desbordamiento de la memoria.

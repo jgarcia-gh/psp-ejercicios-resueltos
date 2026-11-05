@@ -3,12 +3,14 @@ package pconcurrente.ejercicio8b;
 public class Main {
     public static void main(String[] args) {
 
-        Contenedor c = new Contenedor();
-        Thread tProductor = new Thread(new Productor(c, "Vainilla", 4));
-        Thread tConsumidor = new Thread(new Consumidor(c));
+        Contenedor contenedor = new Contenedor();
 
-        tProductor.start();
-        tConsumidor.start();
+        Productor p = new Productor(4, Variedad.COLOMBIA, contenedor);
+        Thread tp = new Thread(p);
+        tp.start();
 
+        Consumidor c = new Consumidor(contenedor);
+        Thread tc = new Thread(c);
+        tc.start();
     }
 }

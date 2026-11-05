@@ -3,24 +3,20 @@ package pconcurrente.ejercicio8c;
 import java.util.ArrayList;
 
 public class Contenedor {
-    private ArrayList<Capsula> capsulas = new ArrayList<Capsula>();
-
-    public void anyadirCapsula(Capsula c){
+    private ArrayList<Capsula> capsulas = new ArrayList<>();
+    public synchronized void add(Capsula c){
         capsulas.add(c);
     }
-
-    public boolean sacarCapsulas(){
-        boolean quitadas = false;
-        if(capsulas.size() >= 6){
-            for(int i = 5; i>= 0; i--){
-                capsulas.remove(i);
-            }
-            quitadas = true;
-        }
-        return quitadas;
-    }
-
-    public int numeroCapsulas(){
+    public synchronized int size(){
         return capsulas.size();
     }
+
+    public synchronized ArrayList<Capsula> extraerCapsulas(){
+        ArrayList<Capsula> capsulasExtraidas = new ArrayList<>();
+        for(int i = 0; i<6; i++){
+            capsulasExtraidas.add(capsulas.remove(0));
+        }
+        return capsulasExtraidas;
+    }
+
 }

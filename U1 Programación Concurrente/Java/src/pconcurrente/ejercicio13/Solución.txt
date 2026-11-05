@@ -1,0 +1,13 @@
+Se producen interbloqueos ya que el Robot 1 ocupa la intersección 1 y el robot 1 ocupa la intersección 2.
+El Robot 1 intenta pasar a la intersección 2, pero está ocupada.
+Del mismo modo, el Robot 2 intenta pasar a la intersección 1, pero está ocupada.
+
+Una posible solución es que los robots, al detectar esta situación (ver que no pueden bloquear el cerrojo de la siguiente posición)
+retrocedan. Si solo hacemos solo esto, los robots retrocederán al a posición anterior, y volverán a intentar avanzar, produciéndose
+de nuevo un interbloqueo. Es por eso que, tras retroceder, los robots deberían hacer una espera aleatoria para "desincronizarlos",
+es decir, conseguir que uno de los dos llegue antes que el otro a las intersecciones.
+
+Otra posible solución es utilizar algún tipo de árbitro de modo que el robot que llegue primero y bloquee una intersección también bloquee otra,
+de modo que todo el tramo que puede producir interbloqueo quede bloqueado hasta que el robot que llegó primero lo recorra.
+
+Finalmente, se podría establecer un sistema de prioridades, para que los robots más prioritarios tengan derecho a pasar primero sin realizar esperas.
